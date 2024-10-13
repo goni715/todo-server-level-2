@@ -13,10 +13,9 @@ const todoSchema = new Schema<TTodo>({
         required:true,
         trim: true
     },
-    status: {
-        type: String,
-        enum: ['finished' , "pending"],
-        default: 'pending'
+    isCompleted: {
+        type: Boolean,
+        default: false
     },
     priority: {
         type: String,

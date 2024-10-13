@@ -2,6 +2,6 @@
 export type TTodo = {
     title: string;
     description: string;
-    status: 'finished' | 'pending';
+    isCompleted: boolean;
     priority: 'high' | 'medium' | 'low'
 }
