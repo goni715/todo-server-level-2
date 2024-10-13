@@ -22,6 +22,8 @@ const todoSchema = new Schema<TTodo>({
         type: String,
         enum: ['high' , "medium", 'low'],
     }
+},{
+    timestamps: true
 })
 
 
