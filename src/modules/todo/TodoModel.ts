@@ -6,7 +6,6 @@ const todoSchema = new Schema<TTodo>({
     title: {
         type: String,
         required:true,
-        unique: true,
         trim: true
     },
     description: {
@@ -27,3 +26,4 @@ const todoSchema = new Schema<TTodo>({
 
 
 const TodoModel = model<TTodo>('todos', todoSchema);
+export default TodoModel;
