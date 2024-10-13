@@ -9,10 +9,25 @@ const createTodo = async (req: Request, res: Response) => {
     }
     catch (err:any) {
         res.status(500).json({success: false, message: "Failled to create a Todo", error: err});
-    }
-    
+    } 
 }
 
+
+
+const getTodos = async (req: Request, res: Response) => {
+    try{
+        const data = await TodoModel.find()
+        res.status(200).json({success: true, message: "Todos are retrieved successfully", data: data});
+    }
+    catch (err:any) {
+        res.status(500).json({success: false, message: "Failled to retrieve todos", error: err});
+    } 
+}
+
+
+
+
 export {
-    createTodo
+    createTodo,
+    getTodos
 }

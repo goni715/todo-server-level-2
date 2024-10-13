@@ -1,11 +1,11 @@
 import express from 'express';
-import { createTodo } from './TodoController';
+import { createTodo, getTodos } from './TodoController';
 
 const router = express.Router();
 
 
 router.post('/create-todo', createTodo);
-
+router.get('/get-todos', getTodos);
 
 
 
