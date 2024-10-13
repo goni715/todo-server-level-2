@@ -1,4 +1,4 @@
-import express, { Application, Express, Request, Response } from "express";
+import express, { Application, Request, Response,  } from "express";
 import morgan from "morgan";
 import cors from 'cors';
 
@@ -8,6 +8,7 @@ const app: Application = express();
 
 app.use(morgan('dev'));
 app.use(cors())
+
 
 
 
