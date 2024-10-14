@@ -21,9 +21,9 @@ const getTodos = async (req: Request, res: Response) => {
         let data: any[] = [];
 
         if(priority){
-            data = await TodoModel.find({priority}); 
+            data = await TodoModel.find({priority}).sort('isCompleted -createdAt'); 
         }else{
-            data = await TodoModel.find(); 
+            data = await TodoModel.find().sort('isCompleted -createdAt'); 
         }
 
         res.status(200).json({success: true, message: "Todos are retrieved successfully", data: data});
@@ -48,10 +48,24 @@ const deleteTodo = async (req: Request, res: Response) => {
 };
 
 
+const updateTodo = async (req: Request, res: Response) => {
+    try{
+        let id = req.params.id;
+        const ObjectId = Types.ObjectId;
+        const UpdateQuery = {_id: new ObjectId(id)};
+        const result =  await TodoModel.updateOne(UpdateQuery, req.body);
+        res.status(200).json({success: true, message: "Todo is updated successfully", data: result});
+    }
+    catch (err:any) {
+        res.status(500).json({success: false, message: "Failled to update todo", error: err});
+    } 
+};
+
 
 
 export {
     createTodo,
     getTodos,
-    deleteTodo
+    deleteTodo,
+    updateTodo
 }
