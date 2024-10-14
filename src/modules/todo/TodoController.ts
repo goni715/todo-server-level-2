@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import TodoModel from "./TodoModel";
+import { Types } from "mongoose";
 
 const createTodo = async (req: Request, res: Response) => {
     try{
@@ -16,18 +17,41 @@ const createTodo = async (req: Request, res: Response) => {
 
 const getTodos = async (req: Request, res: Response) => {
     try{
-        const data = await TodoModel.find()
+        const priority = req?.query?.priority;
+        let data: any[] = [];
+
+        if(priority){
+            data = await TodoModel.find({priority}); 
+        }else{
+            data = await TodoModel.find(); 
+        }
+
         res.status(200).json({success: true, message: "Todos are retrieved successfully", data: data});
     }
     catch (err:any) {
         res.status(500).json({success: false, message: "Failled to retrieve todos", error: err});
     } 
-}
+};
+
+
+const deleteTodo = async (req: Request, res: Response) => {
+    try{
+        let id =req.params.id;
+        const ObjectId = Types.ObjectId;
+        const DeleteQuery = {_id: new ObjectId(id)};
+        const result =  await TodoModel.deleteOne(DeleteQuery);
+        res.status(200).json({success: true, message: "Todo is deleted successfully", data: result});
+    }
+    catch (err:any) {
+        res.status(500).json({success: false, message: "Failled to delete todo", error: err});
+    } 
+};
 
 
 
 
 export {
     createTodo,
-    getTodos
+    getTodos,
+    deleteTodo
 }
